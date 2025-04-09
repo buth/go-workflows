@@ -5,5 +5,4 @@ jobs:
   test:
     uses: ./.github/workflows/go.yml
     with:
-        runs-on: ubuntu-latest
-    
+        path: ./test
