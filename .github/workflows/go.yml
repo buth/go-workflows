@@ -1,0 +1,28 @@
+name: Go
+on: 
+  workflow_call:
+    inputs:
+      runs-on:
+        type: string
+        default: ubuntu-latest
+      go-version:
+        type: string
+        default: stable
+      path:
+        type: string
+        default: .
+jobs:
+  test:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: setup-go
+        name: Setup Go ${{ inputs.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ inputs.go-version }}
+          check-latest: true
+      - name: Verify the Go module
+        run: cd ${{ inputs.path }} && go mod tidy -diff
+      - name: Run tests
+        run: cd ${{ inputs.path }} && go test -race -v ./...
