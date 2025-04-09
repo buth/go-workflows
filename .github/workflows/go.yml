@@ -22,26 +22,7 @@ jobs:
         with:
           go-version: ${{ inputs.go-version }}
           check-latest: true
-      - id: go-env
-        run: |
-          echo "::set-output name=GOCACHE::$(go env GOCACHE)"
-          echo "::set-output name=GOMODCACHE::$(go env GOMODCACHE)"
-      - id: restore-go-mod-cache
-        name: Restore the Go module cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.go-env.outputs.GOMODCACHE }}
-          key: go.module-cache-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            go.module-cache-
       - name: Verify the Go module
         run: cd ${{ inputs.path }} && go mod tidy -diff
-      - name: Setup the Go build cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.go-env.outputs.GOCACHE }}
-          key: go${{ steps.setup-go.outputs.go-version }}.${{ runner.os }}-${{ runner.arch }}.build-cache-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            go${{ steps.setup-go.outputs.go-version }}.${{ runner.os }}-${{ runner.arch }}.build-cache-
       - name: Run tests
         run: cd ${{ inputs.path }} && go test -race -v ./...
