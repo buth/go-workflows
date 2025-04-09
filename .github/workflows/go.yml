@@ -3,15 +3,12 @@ on:
   workflow_call:
     inputs:
       runs-on:
-        required: true
         type: string
         default: ubuntu-latest
       go-version:
-        required: true
         type: string
         default: stable
       path:
-        required: false
         type: string
         default: .
 jobs:
