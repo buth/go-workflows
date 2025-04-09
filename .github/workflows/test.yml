@@ -1,0 +1,9 @@
+name: Go Test
+on:
+    pull_request:
+jobs:
+  test:
+    uses: ./.github/workflows/go.yml
+    with:
+        runs-on: ubuntu-latest
+    
