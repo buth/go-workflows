@@ -4,7 +4,12 @@ on:
 jobs:
   govulncheck:
     uses: ./.github/workflows/govulncheck.yml
+    with:
+        path: ./test
   test:
+    strategy:
+        matrix:
+            go-version: ["stable", "oldstable"]
     uses: ./.github/workflows/go.yml
     with:
         path: ./test
