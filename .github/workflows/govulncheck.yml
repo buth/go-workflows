@@ -1,9 +1,10 @@
 name: govulncheck
 on: 
   workflow_call:
-    path:
-      type: string
-      default: .
+    inputs:
+      path:
+        type: string
+        default: .
 jobs:
   govulncheck:
     runs-on: ubuntu-latest
