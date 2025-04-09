@@ -2,6 +2,8 @@ name: Go Test
 on:
     pull_request:
 jobs:
+  govulncheck:
+    uses: ./.github/workflows/govulncheck.yml
   test:
     uses: ./.github/workflows/go.yml
     with:
